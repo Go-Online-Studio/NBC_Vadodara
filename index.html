@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NBC - Nothing But Coffee. Premium coffee shop and roastery.">
+    <title>NBC - Nothing But Coffee</title>
+
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1920&q=80" fetchpriority="high" imagesizes="100vw">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+
+    <style>
+        /* --- Variables --- */
+        :root {
+            --primary-gold: #D4AF37;       
+            --primary-dark: #121212;       
+            --secondary-dark: #1E1E1E;     
+            --text-light: #F5F5F5;         
+            --text-muted: #CCCCCC;         
+            --font-heading: 'Oswald', sans-serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+        a{
+            text-decoration: none;
+        }
+
+        /* --- Typography & Utilities --- */
+        h1, h2, h3, h4, h5 { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px; }
+        .text-gold { color: var(--primary-gold) !important; }
+        .text-muted { color: var(--text-muted) !important; }
+        .line-separator { width: 60px; height: 3px; background-color: var(--primary-gold); margin: 0 auto 20px; margin-bottom: 40px; }
+        section { padding: 100px 0; max-width: 100%; overflow-x: hidden; }
+
+        /* --- Navigation Bar --- */
+        .navbar {
+            background: rgba(18, 18, 18, 0.95);
+            /* backdrop-filter: blur(10px); */
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+        .navbar.navbar-scrolled {
+            background: rgba(18, 18, 18, 0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .navbar-brand {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gold) !important;
+            border: 2px solid var(--primary-gold);
+            padding: 5px 15px;
+            letter-spacing: 2px;
+        }
+        
+        /* Mobile Toggle Button */
+        .navbar-toggler { border-color: var(--primary-gold); }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(212, 175, 55, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        /* --- Navigation Links --- */
+        .nav-link {
+            color: var(--text-light) !important;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 12px;
+            transition: color 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        .nav-link:hover { color: var(--primary-gold) !important; }
+
+        /* Active State (Gold Dot) */
+        .nav-link.active { color: var(--primary-gold) !important; font-weight: 700; }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-gold);
+            border-radius: 50%;
+        }
+
+        /* --- OFFCANVAS CONFIGURATION --- */
+        
+        /* 1. Mobile Styles (Default Offcanvas behavior) */
+        .offcanvas {
+            background-color: rgba(18, 18, 18, 0.98) !important;
+            backdrop-filter: blur(15px);
+            border-left: 1px solid var(--primary-gold);
+        }
+        .offcanvas-header .btn-close {
+            filter: invert(1);
+            opacity: 0.8;
+        }
+        .offcanvas-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center links vertically on mobile */
+            padding: 2rem;
+        }
+        /* Mobile specific link spacing */
+        .offcanvas-body .nav-link {
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+
+        /* --- Hero & Sections --- */
+        /* IMPORTANT: Top padding ensures content isn't hidden behind fixed nav */
+    #home {
+    position: relative;
+    width: 100%;
+    
+    /* CORE FIX: flexible height instead of fixed */
+    min-height: 100vh; 
+    height: auto; 
+    
+    /* Layout structure */
+    display: flex;
+    flex-direction: column;
+    
+    /* Spacing: 130px top ensures it clears your navbar */
+    /* Spacing: 60px bottom ensures content doesn't hit the bottom edge */
+    padding-top: 60px; 
+    padding-bottom: 60px;
+}
+
+/* The Background Image */
+.hero-bg { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    z-index: 0; 
+}
+
+/* The Dark Overlay */
+.hero-overlay {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    /* Use the gradient from your original code or reference */
+    background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.5)); 
+    z-index: 1;
+}
+
+/* The Text Content */
+.hero-content { 
+    position: relative; 
+    z-index: 2; 
+    width: 100%;
+    
+    /* SMART CENTERING: This pushes the content to the middle vertically */
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-top: 80px;
+}
+
+/* Typography (Preserving your styles) */
+.hero-title {
+    font-size: 3.5rem; /* Adjust as needed */
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #f1f1f1;
+    margin-bottom: 2rem;
+}
+
+.text-gold { color: #d4af37; } /* Example Gold color */
+.btn-gold { background-color: #d4af37; color: #000; border: none; }
+.btn-outline-gold { border: 2px solid #d4af37; color: #d4af37; }
+
+/* Responsive adjustments for mobile text size */
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.5rem; }
+}
+        
+        .hero-title { font-size: clamp(3rem, 6vw, 5rem); font-weight: 700; line-height: 1.1; margin-bottom: 20px; }
+        
+        /* Buttons */
+        .btn-gold {
+            background-color: var(--primary-gold); color: #000; font-weight: 600;
+            padding: 12px 30px; text-transform: uppercase; border: 2px solid var(--primary-gold);
+            border-radius: 0; transition: all 0.3s;
+        }
+        .btn-gold:hover { background: transparent; color: var(--primary-gold); border: 2px solid var(--primary-gold); }
+        .btn-outline-gold {
+            border: 2px solid var(--primary-gold); color: var(--primary-gold);
+            padding: 10px 25px; text-transform: uppercase; font-weight: 600;
+            background: transparent; border-radius: 0; transition: all 0.3s;
+        }
+        .btn-outline-gold:hover { background: var(--primary-gold); color: #000; }
+
+        /* Cards & Features */
+        .feature-box, .menu-card, .testimonial-card {
+            background: var(--secondary-dark); border: 1px solid #333; height: 100%; transition: all 0.3s;
+        }
+        .feature-box:hover, .menu-card:hover { transform: translateY(-5px); border-color: var(--primary-gold); }
+        .menu-img { height: 250px; width: 100%; object-fit: cover; }
+        .menu-body, .testimonial-card { padding: 1.5rem; text-align: center; }
+
+        /* Swiper Dots */
+        .swiper-pagination-bullet { background: #fff; opacity: 0.3; }
+        .swiper-pagination-bullet-active { background: var(--primary-gold); opacity: 1; }
+        .gallery-swiper .swiper-slide img { width: 100%; height: 500px; object-fit: cover; }
+        .testimonial-swiper { padding-bottom: 50px; }
+        .testimonial-card { display: flex; flex-direction: column; justify-content: center; }
+
+        /* Map */
+        .map-container { position: relative; width: 100%; min-height: 400px; height: 100%; }
+        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: grayscale(100%) invert(94%); }
+
+        .contactLinks{
+            transition: al 0.3s ease-in-out;
+        }
+        .contactLinks:hover{
+            color: var(--primary-gold) !important;
+        }
+        
+        /* Footer */
+        footer { background: #000; border-top: 1px solid #333; padding: 60px 0; margin-top: auto; }
+        .footer-logo { font-size: 2rem; color: var(--primary-gold); text-decoration: none; font-family: var(--font-heading); display: block; margin-bottom: 20px; }
+        .social-link { font-size: 1.5rem; color: #fff; margin: 0 10px; transition: all 0.3s ease-in-out; }
+        .social-link:hover { color: var(--primary-gold); }
+
+        /* 2. Desktop Reset (The Magic Fix) */
+        @media (min-width: 992px) {
+            .offcanvas {
+                visibility: visible !important;
+                position: static !important;
+                background: transparent !important;
+                border: none !important;
+                width: auto !important;
+                height: auto !important;
+                transform: none !important;
+                backdrop-filter: none !important;
+                transition: none !important;
+            }
+            .offcanvas-header { display: none !important; }
+            .offcanvas-body {
+                display: flex !important;
+                flex-direction: row !important;
+                padding: 0 !important;
+                background: transparent !important;
+                overflow: visible !important;
+            }
+            .offcanvas-body .nav-link {
+                font-size: 0.9rem;
+                margin: 0 12px;
+            }
+            
+        }
+        @media (max-width: 991.98px) { 
+            .navbar-nav.ms-auto{
+                margin-left: 0px !important;
+                margin-right: auto !important;
+                text-align: left !important;
+            }
+            .offcanvas-body {
+            display: block;
+        }
+        }
+
+        @media (max-width: 767.98px) {
+            section {
+                padding: 50px 0;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#home">NBC</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h2 class="offcanvas-title text-gold font-heading h5" id="offcanvasNavbarLabel">MENU</h2>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav ms-auto text-center" id="navbar-nav-container">
+                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home">
+    <img loading="eager" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1920&q=80" alt="Cafe" class="hero-bg">
+    
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+        <div class="row">
+            <div class="col-lg-8" data-aos="fade-up">
+                <h1 class="hero-title">NOTHING BUT <span class="text-gold">COFFEE</span></h1>
+                <p class="hero-subtitle">Experience the art of brewing in the heart of the city.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="#menu" class="btn btn-gold">View Menu</a>
+                    <a href="#contact" class="btn btn-outline-gold">Visit Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <section id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <div class="p-3 border border-warning"><img loading="lazy" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800" class="w-100 d-block" alt="Pouring"></div>
+                </div>
+                <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
+                    <div class="section-header text-start">
+                        <h2>OUR <span class="text-gold">STORY</span></h2>
+                        <div class="line-separator ms-0"></div>
+                    </div>
+                    <p class="lead text-light mb-4">We don't just serve coffee; we curate experiences. Born from a passion for the perfect roast.</p>
+                    <p class="text-muted">At NBC, we source the finest beans from sustainable farms across the globe. Our master roasters meticulously craft every batch.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="pt-0">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="text-center" >OUR <span class="text-gold">SIGNATURES</span></h2>
+                <div class="line-separator"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="menu-card">
+                        <img loading="lazy" src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600" class="menu-img" alt="Latte">
+                        <div class="menu-body"><h3 class="h4">Velvet Latte</h3><p class="text-muted">House blend espresso with micro-foam.</p><span class="text-gold fw-bold">₹ 250</span></div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="menu-card">
+                        <img loading="lazy" src="https://images.unsplash.com/photo-1601125124200-2868945e9014?w=600" class="menu-img" alt="Cold Brew">
+                        <div class="menu-body"><h3 class="h4">Nitro Cold Brew</h3><p class="text-muted">Steeped for 18 hours, infused with nitrogen.</p><span class="text-gold fw-bold">₹ 300</span></div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="menu-card">
+                        <img loading="lazy" src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600" class="menu-img" alt="Croissant">
+                        <div class="menu-body"><h3 class="h4">Almond Croissant</h3><p class="text-muted">Buttery layers with almond cream.</p><span class="text-gold fw-bold">₹ 180</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-0">
+        <div class="swiper gallery-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img loading="lazy" src="https://images.unsplash.com/photo-1642026465180-5e25255838e9?w=1600" alt="1"></div>
+                <div class="swiper-slide"><img loading="lazy" src="https://images.unsplash.com/photo-1671011032397-1d717b69315b?w=1600" alt="2"></div>
+                <div class="swiper-slide"><img loading="lazy" src="https://images.unsplash.com/photo-1657928198235-28569fc7d0ba?w=1600" alt="3"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="text-center">LOVED BY <span class="text-gold">LOCALS</span></h2>
+                <div class="line-separator"></div>
+            </div>
+            <div class="swiper testimonial-swiper" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="text-gold mb-3 fs-4">★★★★★</div>
+                            <p class="fst-italic text-light">"Dark, moody, and perfect for getting work done. The cold brew is a lifesaver."</p>
+                            <h3 class="h5 mt-4 text-gold">- Sarah Jenkins</h3>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="text-gold mb-3 fs-4">★★★★★</div>
+                            <p class="fst-italic text-light">"I joined the rewards club last month. Best coffee in Vadodara hands down."</p>
+                            <h3 class="h5 mt-4 text-gold">- Rahul Mehta</h3>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="text-gold mb-3 fs-4">★★★★★</div>
+                            <p class="fst-italic text-light">"Finally a place that takes roasting seriously. The aroma is intoxicating."</p>
+                            <h3 class="h5 mt-4 text-gold">- Emily D'Souza</h3>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="text-gold mb-3 fs-4">★★★★★</div>
+                            <p class="fst-italic text-light">"The Almond Croissant pairs perfectly with the Velvet Latte."</p>
+                            <h3 class="h5 mt-4 text-gold">- Aman Gupta</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-black">
+        <div class="container">
+            <div class="row g-0 align-items-stretch">
+                <div class="col-lg-5 p-5 bg-dark" data-aos="fade-right">
+                    <h2 class="mb-4 text-gold">GET IN TOUCH</h2>
+                    <div class="mb-4"><h3 class="mb-2 h5">Visit Us</h3><a class="contactLinks text-muted" target="_blank" href="https://maps.app.goo.gl/f1Hb4dY28pXuJg859">GF-18, Silver Coin Complex, A & 18/B,<br> Vidyutnagar Colony, Tarangan Society,<br> Akota, Vadodara, Gujarat 390007</a></div>
+                    <div class="mb-4"><h3 class="mb-2 h5">Call Us</h3><a class="contactLinks text-muted" href="tel:+918200883471">+91 82008 83471</a></div>
+                    <div class="mb-4"><h3 class="mb-2 h5">Email</h3><a class="contactLinks text-muted" href="mailto:contact@nbc.fudr.in">contact@nbc.fudr.in</a></div>
+                    <h3 class="mt-5 mb-3 text-gold h5">Hours</h3>
+                    <p class="text-muted">Mon - Sun: 08:00 AM - 11:00 PM</p>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.443193494265!2d73.1685407758664!3d22.299072442938837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc98f086099bd%3A0xa0f4c6380a85557c!2sNothing%20Before%20Coffee%20-%20Akota%2C%20Vadodara!5e0!3m2!1sen!2sin!4v1768883836952!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <a href="#" class="footer-logo">NBC</a>
+            <div class="d-flex justify-content-center mb-4">
+                <a href="https://www.instagram.com" class="social-link"><span class="iconify" data-icon="mdi:instagram"></span></a>
+                <a href="https://www.facebook.com" class="social-link"><span class="iconify" data-icon="mynaui:facebook"></span></a>
+                <a href="https://www.twitter.com" class="social-link"><span class="iconify" data-icon="mynaui:twitter"></span></a>
+            </div>
+            <div class="text-muted small"><p class="mb-0">© <span id="currentYear"></span> Nothing But Coffee. All Rights Reserved. Designed by Shriii Tracking Solution</p></div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // 1. Initialize AOS
+        AOS.init({ duration: 800, once: true });
+
+        // 2. Swiper Initialization
+        new Swiper(".gallery-swiper", { centeredSlides: true, loop: true, autoplay: { delay: 3000 }, pagination: { el: ".swiper-pagination", clickable: true } });
+        new Swiper(".testimonial-swiper", { slidesPerView: 1, spaceBetween: 30, loop: true, autoplay: { delay: 5000 }, pagination: { el: ".swiper-pagination", clickable: true }, breakpoints: { 768: { slidesPerView: 2 }, 992: { slidesPerView: 3 } } });
+
+    
+        // 4. Navbar Background Logic
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNav');
+            if (window.scrollY > 50) { navbar.classList.add('navbar-scrolled'); } 
+            else { navbar.classList.remove('navbar-scrolled'); }
+        });
+
+        // 5. Footer Year Logic
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+       
+    </script>
+</body>
+</html>
